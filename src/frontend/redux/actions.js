@@ -19,7 +19,7 @@ function receiveApps(json) {
 function fetchApps() {
   return dispatch => {
     dispatch(requestApps())
-    return fetch(`assets/data.json`)
+    return fetch(`/data.json`)
       .then(response => response.json())
       .then(json => dispatch(receiveApps(json)))
   }
