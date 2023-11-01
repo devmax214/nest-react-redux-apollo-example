@@ -1,14 +1,16 @@
 import { Module } from '@nestjs/common';
-// import { GraphQLModule } from '@nestjs/graphql';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ClientModule } from './client/client.module';
 
 @Module({
-  // imports: [
-  //   GraphQLModule.forRoot({
-  //     autoSchemaFile: true,
-  //   }),
-  // ],
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath: '.development.env',
+    }),
+    ClientModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
