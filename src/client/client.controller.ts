@@ -1,5 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { ClientService, IPageMetadata } from './client.service';
+import { ClientService } from './client.service';
 
 @Controller()
 export class ClientController {

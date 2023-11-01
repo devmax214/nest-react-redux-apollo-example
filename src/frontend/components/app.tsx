@@ -3,7 +3,14 @@ import { connect } from 'react-redux'
 import { fetchAppsIfNeeded } from '../redux/actions'
 
 import Card from './card'
-class App extends Component {
+
+type Props = {
+  isFetching: boolean,
+  apps: any,
+  dispatch: (args) => {},
+};
+
+class App extends Component<Props> {
 
   componentDidMount() {
     const { dispatch } = this.props

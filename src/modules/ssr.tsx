@@ -2,11 +2,11 @@ import React from 'react'
 import { renderToString } from 'react-dom/server'
 
 import { Provider } from 'react-redux'
-import configureStore from './redux/configureStore'
-import App from './components/app'
+import configureStore from '../frontend/redux/configureStore'
+import App from '../frontend/components/app'
 
 
-module.exports = function render(initialState) {
+export default (initialState) => {
   // Configure the store with the initial state provided
   const store = configureStore(initialState)
 
