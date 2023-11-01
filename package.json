@@ -1,11 +1,13 @@
 {
-  "name": "backend",
+  "name": "react-redux-apollo-ssr-on-nest",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "@devmax214",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "IST",
   "scripts": {
+    "ssr:start": "yarn build && node index.js",
+    "ssr:build": "webpack --config webpack.config.js",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
@@ -20,6 +22,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@babel/register": "^7.8.6",
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/graphql": "^12.0.9",
@@ -27,10 +30,19 @@
     "apollo-server-express": "^3.12.1",
     "graphql": "^16.8.1",
     "graphql-tools": "^9.0.0",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "@babel/preset-react": "^7.8.3",
     "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
@@ -40,6 +52,7 @@
     "@types/supertest": "^2.0.12",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
+    "babel-loader": "^8.0.6",
     "eslint": "^8.42.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
@@ -51,7 +64,9 @@
     "ts-loader": "^9.4.3",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.1.3"
+    "typescript": "^5.1.3",
+    "webpack": "^4.42.0",
+    "webpack-cli": "^3.3.11"
   },
   "jest": {
     "moduleFileExtensions": [
