@@ -1,6 +1,7 @@
 import { REQUEST_APPS,  RECEIVE_APPS } from './actions';
+import { defaultState } from './configureStore';
 
-function apps( state = {isFetching: false, apps: []}, action) {
+function apps(state = defaultState, action) {
   switch (action.type) {
     case REQUEST_APPS:
       return Object.assign({}, state, {

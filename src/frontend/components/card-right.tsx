@@ -2,7 +2,7 @@ import React from 'react';
 import Title from './title';
 import tweet from './tweet';
 
-const CardRight = ({ app }) => (
+const CardRight = ({ app }: any) => (
   <div className="col-right">
     <div className="app-meta">
       <Title name={app.name} publisher={app.publisher} />

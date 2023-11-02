@@ -1,17 +1,27 @@
-import { Module } from '@nestjs/common';
+import { Module, MiddlewareConsumer } from '@nestjs/common';
+// import { ServeStaticModule } from '@nestjs/serve-static';
 import { ConfigModule } from '@nestjs/config';
+// import { join } from 'path';
 import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { ClientModule } from './client/client.module';
+import { SSRMiddleware } from './middleware/ssr.middleware';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: '.development.env',
     }),
-    ClientModule,
+    // ServeStaticModule.forRoot({
+    //   rootPath: join(__dirname, '..', 'assets'),
+    //   exclude: ['/api/(.*)'],
+    // }),
   ],
   controllers: [AppController],
-  providers: [AppService],
 })
-export class AppModule {}
+
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(SSRMiddleware)
+      .forRoutes(AppController);
+  }
+}
