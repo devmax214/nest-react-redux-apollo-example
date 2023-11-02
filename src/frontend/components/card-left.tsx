@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CardLeft = ({ appno, totalapps, img }) => (
+const CardLeft = ({ appno, totalapps, img }: any) => (
   <div className="col-left">
     <div className="app-no">
       <span className="current">{`0${appno}`}</span>

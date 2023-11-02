@@ -22,19 +22,17 @@ export class SSRMiddleware implements NestMiddleware {
   async use(req: Request, res: Response, next: () => void) {
     if (/[^\\/]+\.[^\\/]+$/.test(req.path)) {
       const filePath = this.getAssetPath(req.path);
-      console.log('file', filePath);
       res.sendFile(filePath, (err: ResponseError) => {
         if (err) {
           res.status(err.status).end();
         }
       });
     } else {
-      const basePath = path.join(__dirname, '..', 'assets');
+      const basePath = this.configService.get('CLIENT_BUILD_PATH');
       const filePath = path.resolve(path.join(basePath, 'index.html'));
-
       fs.readFile(filePath, 'utf8', async (err: NodeJS.ErrnoException, data: string) => {
         if (err) {
-          res.status(err.errno).end();
+          res.send(err).end();
         } else {
           const DEFAULT_TITLE = this.configService.get('DEFAULT_TITLE');
           const DEFAULT_DESCRIPTION = this.configService.get('DEFAULT_DESCRIPTION');

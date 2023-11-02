@@ -1,10 +1,12 @@
 import type * as express from "express";
+import { Headers, Request, Response } from 'node-fetch';
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { Provider } from 'react-redux'
 import {
   createStaticHandler,
   createStaticRouter,
+  StaticHandlerContext,
   StaticRouterProvider,
 } from "react-router-dom/server";
 import configureStore from '../frontend/redux/configureStore'
@@ -19,7 +21,7 @@ export const getSSRState = async (request, initialState) => {
     throw context;
   }
 
-  let router = createStaticRouter(dataRoutes, context);
+  let router = createStaticRouter(dataRoutes, (context as StaticHandlerContext));
   const store = configureStore(initialState)
 
   // render the App store static markup ins content variable
@@ -28,7 +30,7 @@ export const getSSRState = async (request, initialState) => {
       <Provider store={store}>
         <StaticRouterProvider
           router={router}
-          context={context}
+          context={(context as StaticHandlerContext)}
           nonce="the-nonce"
         />
       </Provider>
@@ -49,6 +51,7 @@ export function createFetchRequest(req: express.Request): Request {
   let controller = new AbortController();
   req.on("close", () => controller.abort());
 
+  ///node_modules/@types/node/globals.d.ts
   let headers = new Headers();
 
   for (let [key, values] of Object.entries(req.headers)) {

@@ -22,5 +22,4 @@ function LazyPage() {
     </>
   );
 }
-
 export const element = <LazyPage />;
