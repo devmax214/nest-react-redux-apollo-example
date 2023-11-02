@@ -1,6 +1,6 @@
 import type * as express from "express";
 import { Headers, Request, Response } from 'node-fetch';
-import React from 'react'
+import * as React from 'react'
 import { renderToString } from 'react-dom/server'
 import { Provider } from 'react-redux'
 import {

@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import Title from './title';
 import tweet from './tweet';
 
@@ -19,6 +19,5 @@ const CardRight = ({ app }: any) => (
     </div>
   </div>
 )
-
 
 export default CardRight;

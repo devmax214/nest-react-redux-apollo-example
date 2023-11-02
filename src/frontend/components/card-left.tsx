@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 const CardLeft = ({ appno, totalapps, img }: any) => (
   <div className="col-left">
