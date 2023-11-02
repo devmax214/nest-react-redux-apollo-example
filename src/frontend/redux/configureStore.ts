@@ -11,3 +11,5 @@ export default function configureStore(preloadedState) {
     )
   )
 }
+
+export const defaultState = {isFetching: false, apps: []};

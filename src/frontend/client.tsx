@@ -1,28 +1,54 @@
 import React from 'react'
-import {hydrate} from 'react-dom'
+import * as ReactDOM from "react-dom/client";
 import {Provider} from 'react-redux'
-import configureStore from './redux/configureStore'
-import App from './components/app'
+import {
+  createBrowserRouter,
+  matchRoutes,
+  RouterProvider,
+} from "react-router-dom";
+import configureStore, {defaultState} from './redux/configureStore'
+import {routes} from "./components/app";
+import "./index.css";
 
-type XWindow = Window & typeof globalThis & {__STATE__: string};
-// Read the state sent with markup
-const state = (window as XWindow).__STATE__;
+hydrate();
 
-// delete the state from global window object
-delete (window as XWindow).__STATE__;
+async function hydrate() {
+  type XWindow = Window & typeof globalThis & {__STATE__: any};
+  // Read the state sent with markup
+  let state = (window as XWindow).__STATE__ || {};
 
-// reproduce the store used to render the page on server
-const store = configureStore(state)
+  if (Object.keys(state).length == 0) {
+    state = defaultState;
+  }
 
-/**
- * hydrate the page to make sure both server and client
- * side pages are identical. This includes markup checking,
- * react comments to identify elements and more.
- */
+  console.log('state', state);
+  // delete the state from global window object
+  delete (window as XWindow).__STATE__;
 
-hydrate(
-  <Provider store={store} >
-     <App />
-  </Provider>,
-  document.querySelector('#root')
-)
+  // reproduce the store used to render the page on server
+  const store = configureStore(state);
+
+  let lazyMatches = matchRoutes(routes, window.location)?.filter(
+    (m) => m.route.lazy
+  );
+
+  if (lazyMatches && lazyMatches?.length > 0) {
+    await Promise.all(
+      lazyMatches.map(async (m) => {
+        let routeModule = await m.route.lazy!();
+        Object.assign(m.route, { ...routeModule, lazy: undefined });
+      })
+    );
+  }
+
+  let router = createBrowserRouter(routes);
+
+  ReactDOM.hydrateRoot(
+    document.querySelector('#root')!,
+    <React.StrictMode>
+      <Provider store={store}>
+        <RouterProvider router={router} fallbackElement={null} />
+      </Provider>
+    </React.StrictMode>,
+  )
+}

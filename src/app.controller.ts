@@ -1,4 +1,9 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 
-@Controller('api')
-export class AppController {}
+@Controller()
+export class AppController {
+  @Get()
+  getHello() {
+    return 'Hello, Nest.js!';
+  }
+}
