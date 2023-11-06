@@ -1,7 +1,14 @@
 import * as React from 'react';
 import type { RouteObject } from "react-router-dom";
 import { Outlet, Link, useLoaderData, redirect } from "react-router-dom";
+import { connectedRouterRedirect } from 'redux-auth-wrapper/history4/redirect';
 import ReduxApp from "./home";
+
+// const userIsAuthenticated = connectedRouterRedirect({
+//  redirectPath: '/',
+//  authenticatedSelector: state => state.user.data !== null,
+//  wrapperDisplayName: 'section'
+// })
 
 export const routes: RouteObject[] = [
   {

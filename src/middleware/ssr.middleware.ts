@@ -3,16 +3,10 @@ import { ConfigService } from '@nestjs/config';
 import { Request, Response } from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
-import { getSSRState } from '../modules/ssr';
-import data from '../modules/data';
+import { renderSSR } from '../modules/ssr';
 
 interface ResponseError extends Error {
   status?: number;
-}
-
-let initialState = {
-  isFetching: false,
-  apps: data
 }
 
 @Injectable()
@@ -41,11 +35,12 @@ export class SSRMiddleware implements NestMiddleware {
           data = data.replace(/__PAGE_DESCRIPTION__/g, DEFAULT_DESCRIPTION);
           data = data.replace(/__PAGE_IMAGE__/g, DEFAULT_IMAGE);
 
-          const { preloadedState, content } = await getSSRState(req, initialState);
-          data = data.replace(/{\/\*__STATE__\*\/}/, JSON.stringify(preloadedState));
-          data = data.replace(/<!--%__CONTENT__%-->/, content);
+          // const { preloadedState, content } = await getSSRState(req, initialState);
+          // data = data.replace(/{\/\*__STATE__\*\/}/, JSON.stringify(preloadedState));
+          // data = data.replace(/<!--%__CONTENT__%-->/, content);
       
-          res.send(data).end();
+          // res.send(data).end();
+          await renderSSR(req, res, data);
         }
       });
     }

@@ -21,6 +21,8 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@apollo/server": "^4.9.5",
+    "@nestjs/apollo": "^12.0.9",
     "@nestjs/common": "^10.2.8",
     "@nestjs/config": "^3.1.1",
     "@nestjs/core": "^10.2.8",
@@ -36,6 +38,7 @@
     "react-router-config": "^5.1.1",
     "react-router-dom": "^6.18.0",
     "redux": "^4.2.1",
+    "redux-auth-wrapper": "^3.0.0",
     "redux-thunk": "^2.4.2",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1"

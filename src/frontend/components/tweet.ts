@@ -1,4 +1,4 @@
-export default function tweet(tweet: any) {
+export default function tweet(tweet) {
   let twitterIntentURL = "https://twitter.com/intent/tweet?";
   let text = encodeURIComponent(tweet);
   let url = `${twitterIntentURL}text=${text}&related=rohitkrops`;
